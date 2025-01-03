@@ -3,18 +3,20 @@
 
 #include <stdexcept>
 
-Application::Application()
+namespace Core
 {
+    Application::Application()
+    {
+        m_rendererConfig = Render::RendererConfig(800, 600, "BlazeEngine", true);
+    }
 
-}
+    Application::~Application()
+    {
+        Log::Logger::Log(Log::INFO, "Cleaning Application");
+    }
 
-Application::~Application()
-{
-
-}
-
-void Application::run()
-{
-    Logger::Log(LOG_LEVEL::INFO, "Running...");
-    throw std::runtime_error("No code kek");
+    void Application::run()
+    {
+        m_renderer = std::make_unique<Render::Renderer>(m_rendererConfig); // Create and run the renderer
+    }
 }

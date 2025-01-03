@@ -1,20 +1,21 @@
 #include "core/application.hpp"
 #include "logger/logger.hpp"
 
-#include <iostream>
 #include <cstdlib>
+#include <memory>
 
-int main(int argc, char** argv)
+int main()
 {
-    Logger::Log(INFO, "Initializing Blaze Engine");
+    Log::Logger::Log(Log::INFO, "Initializing Blaze Engine");
 
     try {
-        Application app;
-        app.run();
+        const auto app = std::make_unique<Core::Application>();
+        app->run();
     } catch (const std::exception& e) {
-        Logger::Log(ERR, e.what());
+        Log::Logger::Log(Log::ERR, e.what());
         return EXIT_FAILURE;
     }
 
+    Log::Logger::Log(Log::INFO, "Shutting down Blaze Engine");
     return EXIT_SUCCESS;
 }
